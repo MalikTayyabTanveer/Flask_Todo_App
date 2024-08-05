@@ -19,3 +19,8 @@ def delete_todo(todo_id):
     if 0 <= todo_id < len(todos):
         del todos[todo_id]
     return redirect(url_for('index'))
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')

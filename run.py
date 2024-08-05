@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from pyngrok import ngrok
+import os
 
 app = Flask(__name__)
 
@@ -21,6 +22,11 @@ def delete_todo(todo_id):
     if 0 <= todo_id < len(todos):
         del todos[todo_id]
     return redirect(url_for('index'))
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == '__main__':
     # Start Flask app in a separate thread
